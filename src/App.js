@@ -25,7 +25,7 @@ const firestore = firebase.firestore();
 function App() {
 
   const [user] = useAuthState(auth);
-
+  console.log(process.env)
   return (
     <div className="App">
       <header>
