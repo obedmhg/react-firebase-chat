@@ -5,6 +5,8 @@ import firebase from 'firebase/app';
 import 'firebase/firestore';
 import 'firebase/auth';
 import 'firebase/analytics';
+import Filter from 'bad-words';
+
 
 import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
@@ -73,14 +75,20 @@ function ChatRoom() {
 
   const [formValue, setFormValue] = useState('');
 
-
+  
   const sendMessage = async (e) => {
     e.preventDefault();
 
     const { uid, photoURL } = auth.currentUser;
+    const filter = new Filter();
+    let text = formValue;
+    if (filter.isProfane(text)) {
+        const cleaned = filter.clean(text);
+        text = `🤐 I can't say this... ${cleaned}`;
+    } 
 
     await messagesRef.add({
-      text: formValue,
+      text: text,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL
