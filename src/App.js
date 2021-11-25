@@ -12,13 +12,13 @@ import { useAuthState } from 'react-firebase-hooks/auth';
 import { useCollectionData } from 'react-firebase-hooks/firestore';
 
 firebase.initializeApp({
-  apiKey: process.env.API_KEY,
-  authDomain: process.env.AUTH_DOMAIN,
-  projectId: process.env.PROJECT_ID,
-  storageBucket: process.env.STORAGE_BUCKET,
-  messagingSenderId: process.env.MESSAGING_SENDER_ID,
-  appId: process.env.APP_ID,
-  measurementId: process.env.MEASUREMENT_ID
+  apiKey: "AIzaSyBqsQ8pjXlp-_WJ6xA-NhAlOEPZn-yCJWE",
+  authDomain: "react-chat-sandbox.firebaseapp.com",
+  projectId: "react-chat-sandbox",
+  storageBucket: "react-chat-sandbox.appspot.com",
+  messagingSenderId: "189553936611",
+  appId: "1:189553936611:web:0ddf8cb690a516597addd6",
+  measurementId: "G-BX33DL7NPC"
 })
 
 const auth = firebase.auth();
@@ -79,7 +79,7 @@ function ChatRoom() {
   const sendMessage = async (e) => {
     e.preventDefault();
 
-    const { uid, photoURL } = auth.currentUser;
+    const { uid, photoURL, displayName } = auth.currentUser;
     const filter = new Filter();
     let text = formValue;
     if (filter.isProfane(text)) {
@@ -88,7 +88,7 @@ function ChatRoom() {
     } 
 
     await messagesRef.add({
-      text: text,
+      text: displayName + ": " + text,
       createdAt: firebase.firestore.FieldValue.serverTimestamp(),
       uid,
       photoURL
