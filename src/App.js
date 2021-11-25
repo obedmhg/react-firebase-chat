@@ -84,7 +84,7 @@ function ChatRoom() {
     let text = formValue;
     if (filter.isProfane(text)) {
         const cleaned = filter.clean(text);
-        text = `🤐 I can't say this... ${cleaned}`;
+        text = `🤐 No puedo decir malas palabras ... ${cleaned}`;
     } 
 
     await messagesRef.add({
